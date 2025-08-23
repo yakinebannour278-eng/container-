@@ -57,7 +57,7 @@ def remove_user(user_id: int,db: Session = Depends(get_db)):
        
        raise HTTPException(status_code=404, detail="User not found")
     return user
-@app.post("/read_json/")
+@app.post("/predict/")
 async def upload_json(file: UploadFile = File(...)):
     if not file.filename.endswith(".json"):
         raise HTTPException(status_code=400, detail="Not a JSON file")

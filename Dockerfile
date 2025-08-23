@@ -26,8 +26,8 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copier le projet
-COPY . /app
-
+# Copier le projetw
+COPY .  /app
+EXPOSE 8000
 # Lancer FastAPI
 CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
