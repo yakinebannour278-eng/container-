@@ -7,19 +7,28 @@ import schemas
 import json
 import numpy as np
 import joblib
+import logging
 
 
 
 
 app = FastAPI()
 
+try :
+   model = joblib.load("model.pkl")
+except Exception as e:
+   logging.warning(f"⚠️ Could not load the model: {e}")
 
-model = joblib.load("model.pkl")
     
+
+
 @app.on_event("startup")
 def on_startup():
-    Base.metadata.create_all(bind=engine)
-# Default users list (simulating a database)
+    try:
+        Base.metadata.create_all(bind=engine)
+        logging.info("✅ Database connected and tables created.")
+    except Exception as e:
+        logging.warning(f"⚠️ Could not connect to the database at startup: {e}")
 
 # Get all users
 @app.get("/users/")
